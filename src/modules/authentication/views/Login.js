@@ -21,8 +21,8 @@ const Login = (props) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const [email, setEmail] = useState('admin@demo.com')
-  const [username, setUsername] = useState('admin')
-  const [password, setPassword] = useState('admin')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
 
   const { register, errors, handleSubmit } = useForm()
@@ -31,12 +31,11 @@ const Login = (props) => {
 
   const onSubmit = data => {
     if (isObjEmpty(errors)) { //check error validate
-      console.log("data", data)
       // localStorage.setItem('menuStatus', true)
       useJwt
         .login({ email, password, username })
         .then(res => {
-          console.log(res.data)
+          localStorage.setItem('email', username)
           const data = res.data
           dispatch(handleLogin(data))
           ability.update({

@@ -7,18 +7,18 @@ import PaginationAndRowPerPage from "@src/components/pagination/PaginationAndRow
 import FilterSearch from '@src/components/filter-search'
 import { Link, Redirect } from 'react-router-dom/cjs/react-router-dom'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
-import axios from 'axios'
+import axiosInstance from '../../../../helper/axios'
 
 const columns = [
   {
     name: 'NAME',
     sortable: true,
-    selector: row => <Link to={`/accounts/edit/${row.name}`}>{row.name}</Link>
+    selector: row => <Link to={`/accounts/edit/${row.key}`}>{row.name}</Link>
   },
   {
     name: 'LEVEL',
     sortable: true,
-    selector: row => row.level
+    selector: row => row.Account_level
   },
   {
     name: 'PARENT',
@@ -42,7 +42,7 @@ const columns = [
     name: 'TYPE',
     sortable: true,
     right: true,
-    selector: row => <Badge color='danger' pill>Postpaid</Badge>
+    selector: row => <Badge color={row.pay_type === 2 ? 'danger' : 'secondary'} pill>{row.pay_type === 2 ? 'Postpaid' : 'Prepaid'}</Badge>
   },
   {
     name: 'COST(THB)',
@@ -54,13 +54,13 @@ const columns = [
     name: 'CREATE DATE',
     sortable: true,
     right: true,
-    selector: row => row.create_date
+    selector: row => row.createdate
   },
   {
     name: 'STATUS',
     sortable: true,
     right: true,
-    selector: row => <Button size='sm' color='success' disabled>Active</Button>
+    selector: row => <Button size='sm' color={row.status === true ? 'success' : 'danger'} disabled>{row.status === true ? 'Active' : 'Inactive'}</Button>
   }
 ]
 
@@ -78,20 +78,21 @@ function index() {
     //   .then(result => {
     //     console.log('test', result)
     //   })
-    axios.post('https://backendapi.ants.co.th/api/accounts/list_accounts')
+    axiosInstance.post('/api/accounts/list_accounts')
       .then(result => {
-        console.log(result.data)
         setDatas(result.data)
         setSearchDatas(result.data)
       })
   }, [])
 
-  useEffect(async () => {
+  const searchClick = async () => {
     if (search.trim() !== '') {
       const result = await datas.filter(x => x.name.includes(search))
       setSearchDatas(result)
+    } else {
+      setSearchDatas(datas)
     }
-  }, [search])
+  }
   return (
     <>
       <NavbarTitle
@@ -111,7 +112,7 @@ function index() {
                   <FilterSearch search={search} setSearch={setSearch} />
                 </Col>
                 <Col xs='3' sm='2'>
-                  <Button color='primary' outline>Search</Button>
+                  <Button color='primary' outline onClick={searchClick}>Search</Button>
                 </Col>
               </Row>
               <DataTable

@@ -1,6 +1,7 @@
 // ** Auth Endpoints
 export default {
-  loginEndpoint: 'https://backendapi.ants.co.th/api/Token',
+  //loginEndpoint: 'https://backendapi.ants.co.th/api/Token',
+  loginEndpoint: 'http://27.254.150.106:3000/api/Token',
   registerEndpoint: '/jwt/register',
   refreshEndpoint: '/jwt/refresh-token',
   logoutEndpoint: '/jwt/logout',

@@ -20,7 +20,7 @@ const MenuRoutes = [
     component: lazy(() => import('./views/accounts/user/addUser.js'))
   },
   {
-    path: "/accounts/user/edit/:id",
+    path: "/accounts/user/edit/:id/:subId",
     component: lazy(() => import('./views/accounts/user/editUser.js'))
   }
 ]

@@ -10,6 +10,11 @@ const MenuRoutes = [
     path: "/ftpconfig/add",
     component: lazy(() => import("./views/ftpConfig/addFTPConfig")),
     exact: true
+  },
+  {
+    path: "/ftpconfig/edit/:id",
+    component: lazy(() => import("./views/ftpConfig/editFTPConfig")),
+    exact: true
   }
 ]
 

@@ -8,7 +8,7 @@ export default [
         id: "email@email.com",
         groupMenuId: 2,
         showHeader: true,
-        title: "email@email.com",
+        title: window.localStorage.getItem('email'),
         icon: <User size={20} />,
         navLink: '/member'
     }

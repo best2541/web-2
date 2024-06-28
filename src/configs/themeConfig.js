@@ -4,7 +4,7 @@
 const themeConfig = {
   app: {
     //appName: 'ANTS',
-    appLogoImage: require('@src/assets/images/logo/britz_logo.png').default
+    appLogoImage: require('@src/assets/images/logo/logo-ants.png').default
   },
   layout: {
     isRTL: false,
